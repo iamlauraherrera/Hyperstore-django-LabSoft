@@ -1,0 +1,48 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Category{% endblock title %}
+<!-- estilo pagina de libros por categoria-->
+{% block main-content %} 
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-5 mt-5"><!-- inserta imagen -->  
+                <img src="{{ product.imagen_producto.url }}" class="image col-xs-6 col-sm-12 col-lg-12 mt-3 text-sm-center w-100 h-75" alt="">
+            </div>       
+            <div class="col-lg-5 productdetail">
+                <h1 style="font-family: Georgia; font-size: 50px;">{{ product.titulo }}</h1> <!-- inserta el titulo del producto -->
+                <h4> Precio </h4>
+                <h5>Cop.{{ product.descuento|floatformat:3 }}</h5><!-- inserta el precio del producto -->
+                <small class="text-decoration-line-through text-muted fs-5"><del>Cop.{{ product.precio }}</del></small>
+                <br><br> <h4> Descripción </h4>  <!--inserta la descripcion del producto  -->
+                <ul class="fs-5" style="font-family: Rajdhani;">
+                    <li>{{ product.descripcion }}</li>
+                    <br> <b> Autor :  </b> 
+                    <l2>{{ product.autor }}</l2>
+                    <br> <b> Fecha publicación :  </b> 
+                    <l2>{{ product.fecha_publi }}</l2>
+                    <br> <b> Páginas:  </b> 
+                    <l2>{{ product.paginas }}</l2>
+                    <br> <b> Género :  </b> 
+                    <l2>{{ product.genero }}</l2>
+                    <br> <b> Código ISSN :  </b> 
+                    <l2>{{ product.issn }}</l2>
+                </ul>
+                
+                <div class="d-flex">
+                    <form action="/add-to-cart" class="me-2">
+                        <input type="hidden" name="prod_id" value="{{ product.id }}" />
+                        <button type="submit" class="btn btn-primary shadow px-5 py-2">Agregar al carro</button>
+                    </form>
+                    
+                    <a href="{% url 'showcart' %}" class="btn btn-info shadow px-5 py-2 me-2">Comprar ahora</a>
+                    
+                    {% if wishlist %}
+                        <a pid="{{ product.id }}" class="minus-wishlist btn btn-danger shadow px-5 py-2 ms-2"> Quitar de  deseos</a>
+                    {% else %}
+                        <a pid="{{ product.id }}" class="plus-wishlist btn btn-success shadow px-5 py-2 ms-2">Agregar a  deseos</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main-content %}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static  %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <link rel="stylesheet" href= "{% static 'app/css/owl.carousel.min.css'%}"/>
+    <link rel="stylesheet" href= "{% static 'app/css/all.min.css'%}"/>
+    <link rel="stylesheet" href= "{% static 'app/css/style.css'%}"/>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <title>BOOKSTORE</title>
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-blue bg-info">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{% static "app/images/logo.png" %}" width="200" height="100" />
+            
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Articulos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'category' 'LI' %}">Libros</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'RE' %}">Revistas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'DI' %}">Diccionarios</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'EN' %}">Enciclopedias</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'NO' %}">Novelas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CO' %}">Comics</a></li>
+                        </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'about'  %}">Sobre nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'contact'  %}">Contactanos</a>
+                        </li>
+                            
+                        </ul>
+                        <form class="d-flex" role="search" action ="/search">
+                            <input class="form-control me-2" type="search" placeholder="Busqueda" name = "search" aria-label="Search">
+                            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                        </form>
+                    </div>
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class= "nav-item dropdown mx-2">
+                            <a class="nav-link dropdown-toggle text-white"href="#" id = "profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Opciones</a>
+                            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                                <li><a class="dropdown-item" href="{%url 'profile'%}">Perfil</a></li>
+                                <li><a class="dropdown-item" href="{%url 'passwordchange'%}">Cambiar Contraseña</a></li>
+                                <li><a class="dropdown-item" href="{% url "orders" %}">Ordenes</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Salir</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a href="{% url "showcart" %}" class="nav-link text-white">Carro de compra</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a href="{% url "showwishlist" %}" class="nav-link text-white">Lista de deseos</a>
+                        </li>
+                        {% else %}
+                            <li class="nav-item mx-2">
+                                <a href="{% url 'login' %}" class="nav-link text-white">Ingreso</a>
+                            </li>
+                            
+                            <li class="nav-item mx-2">
+                                <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registro</a>
+                            </li>
+                    {% endif %}
+            </ul>
+            </div>
+        </nav>
+        {% block banner_slider %}{% endblock banner_slider %}
+        {% block information %}{% endblock information%}
+        {% block main-content %}{% endblock main-content %}
+        {% block payment-gateway %}{% endblock payment-gateway %}
+
+        <footer class="container-fluid fixed-bottom bg-info text-center p-2 mt-5">
+            copyright : UTP 2023  | Laboratorio proyectos de software.
+        </footer>    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="{%static 'app/js/owl.carusel.min.js'%}"></script>
+    <script src="{%static 'app/js/all.min.js'%}"></script>
+    <script src="{%static 'app/js/myscript.js'%}"></script>
+
+
+</body>
+</html>
