@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-x0bd82-!!q5@)x9i#-+d)-a_e4@sl%v_j3hb8i^ns9=hfxlpeb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleare.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'tienda.urls'
@@ -131,3 +132,16 @@ EMAIL_BACKEND ="django.core.mail.backends.console.EmailBackend"
 
 RAZOR_KEY_ID = "rzp_test_s0QISz7QChT97j"
 RAZOR_KEY_SECRET = "KoZplyZbshFB6qsYYPltRhky"
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_TMP = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+os.makedirs(STATIC_TMP, exist_ok=True)
+os.makedirs(STATIC_ROOT, exist_ok=True)
+
+STATICFILES_DIRS = ( 
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
